@@ -1,0 +1,115 @@
+/* Google Font */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+/* Body */
+
+body{
+
+background:#0F172A;
+color:white;
+
+}
+
+/* Navbar */
+
+.navbar{
+
+padding:20px 0;
+
+background:transparent;
+
+}
+
+.logo{
+
+font-size:28px;
+
+color:#38BDF8 !important;
+
+}
+
+.nav-link{
+
+color:white !important;
+
+margin-left:20px;
+
+transition:.3s;
+
+}
+
+.nav-link:hover{
+
+color:#38BDF8 !important;
+
+}
+
+/* Hero */
+
+.hero{
+
+height:90vh;
+
+display:flex;
+
+align-items:center;
+
+text-align:center;
+
+}
+
+.hero h1{
+
+font-size:60px;
+
+font-weight:700;
+
+margin-bottom:20px;
+
+}
+
+.hero p{
+
+font-size:22px;
+
+color:#CBD5E1;
+
+margin-bottom:40px;
+
+}
+
+.hero-buttons button{
+
+margin:10px;
+
+padding:15px 35px;
+
+border-radius:50px;
+
+}
+
+.btn-primary{
+
+background:#2563EB;
+
+border:none;
+
+}
+
+.btn-primary:hover{
+
+background:#1D4ED8;
+
+}
+
+.btn-outline-light:hover{
+
+color:black;
+
+}
