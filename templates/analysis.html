@@ -1,0 +1,280 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}
+AI Analysis
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2 class="text-white fw-bold mb-1">
+            🤖 AI Resume Analysis
+        </h2>
+
+        <p class="text-secondary mb-0">
+            Detailed analysis of your latest resume
+        </p>
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- TOP ANALYSIS CARDS -->
+<!-- ========================= -->
+
+<div class="row g-4">
+
+    <!-- ATS SCORE -->
+    <div class="col-md-6 col-xl-3">
+
+        <div class="card bg-dark text-white shadow-lg border-0 h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-secondary">
+                    📊 ATS Score
+                </h6>
+
+                <h1 class="display-5 text-info fw-bold">
+                    {{ ats_score }}%
+                </h1>
+
+                <p class="mb-0">
+                    ATS Compatibility
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESUME STRENGTH -->
+    <div class="col-md-6 col-xl-3">
+
+        <div class="card bg-dark text-white shadow-lg border-0 h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-secondary">
+                    💪 Resume Strength
+                </h6>
+
+                <h1 class="display-5 text-success fw-bold">
+                    {{ resume_rating }}
+                </h1>
+
+                <p class="mb-0">
+                    Overall Rating
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SKILLS -->
+    <div class="col-md-6 col-xl-3">
+
+        <div class="card bg-dark text-white shadow-lg border-0 h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-secondary">
+                    🛠 Skills Found
+                </h6>
+
+                <h1 class="display-5 text-warning fw-bold">
+                    {{ skills_count }}
+                </h1>
+
+                <p class="mb-0">
+                    Detected Skills
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JOB MATCHES -->
+    <div class="col-md-6 col-xl-3">
+
+        <div class="card bg-dark text-white shadow-lg border-0 h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-secondary">
+                    💼 Job Matches
+                </h6>
+
+                <h1 class="display-5 text-primary fw-bold">
+                    {{ job_matches }}
+                </h1>
+
+                <p class="mb-0">
+                    Matching Roles
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- SKILLS ANALYSIS -->
+<!-- ========================= -->
+
+<div class="card bg-dark text-white shadow-lg border-0 mt-4">
+
+    <div class="card-body">
+
+        <h4 class="mb-3">
+            🛠 Skills Analysis
+        </h4>
+
+        {% if detected_skills %}
+
+            <div class="d-flex flex-wrap gap-2">
+
+                {% for skill in detected_skills %}
+
+                    <span class="badge bg-primary p-2">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="text-secondary mb-0">
+                Upload a resume to see detected skills.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- RESUME OVERVIEW -->
+<!-- ========================= -->
+
+<div class="card bg-dark text-white shadow-lg border-0 mt-4">
+
+    <div class="card-body">
+
+        <h4 class="mb-3">
+            📄 Resume Overview
+        </h4>
+
+        {% if resume_text %}
+
+            <p class="text-secondary">
+                Your uploaded resume has been successfully analyzed.
+            </p>
+
+            <div class="p-3 rounded bg-secondary">
+
+                <p class="mb-0"
+                   style="white-space: pre-wrap;">
+
+                    {{ resume_text[:1000] }}
+
+                    {% if resume_text|length > 1000 %}
+                        ...
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+        {% else %}
+
+            <p class="text-secondary mb-0">
+                Upload a resume to see your resume overview.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- CHAT WITH RESUME -->
+<!-- ========================= -->
+
+<div class="card bg-dark text-white shadow-lg border-0 mt-4">
+
+    <div class="card-body">
+
+        <h4 class="mb-3">
+            💬 Chat With Your Resume
+        </h4>
+
+        <p class="text-secondary">
+            Ask questions about your uploaded resume.
+        </p>
+
+        <form action="{{ url_for('resume_chat') }}" method="POST">
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    name="user_question"
+                    class="form-control"
+                    placeholder="Ask something about your resume..."
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+
+                    🤖 Ask AI
+
+                </button>
+
+            </div>
+
+        </form>
+
+
+        {% if chat_answer %}
+    <div class="mt-4 p-3 rounded bg-secondary text-white">
+
+    <h6 class="mb-3">
+        🤖 AI Response
+    </h6>
+
+    <div style="white-space: pre-wrap; line-height: 1.7;">
+        {{ chat_answer }}
+    </div>
+
+</div>
+{% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}ResumeIQ AI{% endblock %}</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <div class="container">
+
+            <a class="navbar-brand d-flex align-items-center" href="/">
+
+                <svg width="42" height="42" viewBox="0 0 42 42"
+                     xmlns="http://www.w3.org/2000/svg"
+                     role="img"
+                     aria-label="ResumeIQ AI logo"
+                     class="me-2">
+
+                    <defs>
+                        <linearGradient id="riqGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#6366F1"></stop>
+                            <stop offset="100%" stop-color="#8B5CF6"></stop>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Rounded background -->
+                    <rect x="1" y="1" width="40" height="40" rx="11"
+                          fill="url(#riqGradient)"></rect>
+
+                    <!-- Document / resume icon -->
+                    <rect x="12" y="9" width="14" height="18" rx="2"
+                          fill="#FFFFFF" fill-opacity="0.95"></rect>
+
+                    <rect x="15" y="13" width="8" height="1.6" rx="0.8"
+                          fill="#6366F1"></rect>
+                    <rect x="15" y="16.5" width="8" height="1.6" rx="0.8"
+                          fill="#6366F1"></rect>
+                    <rect x="15" y="20" width="5" height="1.6" rx="0.8"
+                          fill="#6366F1"></rect>
+
+                    <!-- AI spark / tech element -->
+                    <path d="M29 22
+                             L30.4 25.2
+                             L33.6 26.6
+                             L30.4 28
+                             L29 31.2
+                             L27.6 28
+                             L24.4 26.6
+                             L27.6 25.2
+                             Z"
+                          fill="#FDE68A"></path>
+
+                </svg>
+
+                <span class="logo-text">
+                    ResumeIQ AI
+                </span>
+
+            </a>
+
+            <button class="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbar">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse"
+                 id="navbar">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/upload">
+                        Upload Resume
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+
+                </ul>
+
+                <a href="/login"
+                   class="btn btn-outline-light ms-3">
+
+                    Login
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- Dynamic Content -->
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- Footer -->
+
+    <footer class="text-center py-4">
+
+        <p>
+            © 2026 ResumeIQ AI | Developed by Swapnika Mohanty
+        </p>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

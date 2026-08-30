@@ -10,10 +10,12 @@ font-family:'Poppins',sans-serif;
 /* Body */
 
 body{
-
-background:#0F172A;
+background:
+radial-gradient(circle at top left,#312E81 0%,transparent 35%),
+radial-gradient(circle at bottom right,#0F766E 0%,transparent 35%),
+#0F172A;
 color:white;
-
+overflow-x:hidden;
 }
 
 /* Navbar */
@@ -112,4 +114,1125 @@ background:#1D4ED8;
 
 color:black;
 
+}
+
+/* ================= HERO ================= */
+
+.hero{
+
+    min-height:90vh;
+
+    display:flex;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.hero h1{
+
+    font-size:64px;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+}
+
+.hero p{
+
+    font-size:20px;
+
+    color:#CBD5E1;
+
+    margin:30px 0;
+
+}
+
+.hero-buttons .btn{
+
+    margin-right:15px;
+
+    padding:14px 35px;
+
+    border-radius:50px;
+
+}
+
+.hero-placeholder{
+
+    width:350px;
+
+    height:350px;
+
+    border-radius:50%;
+
+    background:rgba(59,130,246,.15);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:150px;
+
+    margin:auto;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(20px);
+
+}
+
+/* Glow */
+
+.hero-glow{
+
+position:absolute;
+
+
+
+width:300px;
+
+
+
+height:300px;
+
+
+
+border-radius:50%;
+
+
+
+filter:blur(120px);
+
+
+
+z-index:-1;
+
+
+
+}
+
+
+
+.glow1{
+
+
+
+background:#2563EB;
+
+
+
+top:-100px;
+
+
+
+left:-80px;
+
+
+
+}
+
+
+
+.glow2{
+
+
+
+background:#8B5CF6;
+
+
+
+right:-100px;
+
+
+
+bottom:-80px;
+
+}
+
+.card{
+
+    transition:0.3s;
+
+}
+
+
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0px 10px 25px rgba(0,255,255,0.25);
+
+}
+
+
+
+.progress{
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    font-weight:600;
+
+    font-size:14px;
+
+}
+
+.shadow-lg{
+
+    transition:0.3s ease;
+
+}
+
+.shadow-lg:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.card-body{
+    min-height:80px;
+}
+canvas{
+    max-height:320px;
+}
+
+/* Hide top navbar on dashboard pages */
+
+.dashboard-page nav.navbar{
+    display:none;
+}
+
+/* Remove extra space */
+
+.dashboard-page .container-fluid{
+    margin-top:0;
+}
+
+/* ===========================
+   Premium Sidebar
+=========================== */
+
+.sidebar{
+    background:#121826;
+    min-height:92vh;
+    border-radius:20px;
+    padding:20px;
+}
+
+.sidebar-item{
+    background:transparent !important;
+    color:#cbd5e1 !important;
+    border:none !important;
+    border-radius:12px !important;
+    margin-bottom:10px;
+    transition:.3s;
+    font-weight:500;
+}
+
+.sidebar-item:hover{
+    background:#4F46E5 !important;
+    color:white !important;
+    transform:translateX(8px);
+}
+
+.sidebar hr{
+    opacity:.2;
+}
+
+.sidebar img{
+
+
+
+    box-shadow:0 0 20px rgba(79,70,229,.4);
+
+}
+
+/* ==========================
+
+Dashboard Cards
+
+========================== */
+
+.dashboard-card{
+
+
+
+padding:30px;
+
+
+
+border-radius:20px;
+
+
+
+color:white;
+
+
+
+min-height:280px;
+
+
+
+transition:.35s;
+
+
+
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+}
+
+.dashboard-card:hover{
+
+transform:translateY(-12px);
+
+box-shadow:
+
+0 0 35px rgba(79,70,229,.45);
+
+}
+
+.dashboard-card h4{
+
+margin-top:20px;
+
+font-weight:700;
+
+}
+
+.dashboard-card p{
+
+margin:20px 0;
+
+opacity:.9;
+
+}
+
+.icon-circle{
+
+width:70px;
+
+height:70px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.2);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:34px;
+
+}
+
+.card-upload{
+
+background:linear-gradient(135deg,#4F46E5,#2563EB);
+
+}
+
+.card-ai{
+
+
+
+background:linear-gradient(135deg,#7C3AED,#9333EA);
+
+}
+
+.card-report{
+
+background:linear-gradient(135deg,#059669,#10B981);
+
+}
+
+.card-interview{
+
+background:linear-gradient(135deg,#EA580C,#FB923C);
+
+}
+
+.card-cover{
+
+background:linear-gradient(135deg,#DB2777,#EC4899);
+
+}
+
+.card-career{
+
+background:linear-gradient(135deg,#0891B2,#06B6D4);
+
+}
+
+.card-settings{
+
+background:linear-gradient(135deg,#334155,#475569);
+
+}
+
+/* ================= HEADER ================= */
+
+.dashboard-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:40px;
+
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.header-btn{
+
+width:50px;
+
+height:50px;
+
+border:none;
+
+border-radius:50%;
+
+background:#1E293B;
+
+color:white;
+
+font-size:22px;
+
+transition:.3s;
+
+}
+
+.header-btn:hover{
+
+background:#4F46E5;
+
+transform:scale(1.08);
+
+}
+
+.profile-img{
+
+width:52px;
+
+height:52px;
+
+border-radius:50%;
+
+box-shadow:0 0 20px rgba(79,70,229,.5);
+
+}
+
+/* ================= STATS ================= */
+
+.stat-card{
+
+background:#111827;
+
+padding:25px;
+
+border-radius:18px;
+
+text-align:center;
+
+transition:.3s;
+
+color:white;
+
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.stat-card h3{
+
+font-size:34px;
+
+font-weight:700;
+
+color:#60A5FA;
+
+}
+
+.stat-card p{
+
+margin:0;
+
+color:#94A3B8;
+
+}
+
+.card,
+
+.dashboard-card,
+
+.stat-card{
+
+backdrop-filter:blur(18px);
+
+-webkit-backdrop-filter:blur(18px);
+
+}
+
+.btn{
+
+transition:.3s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+/* ================= GLOBAL ANIMATION ================= */
+
+*{
+
+transition:all .3s ease;
+
+}
+
+/* ================= PAGE SPACING ================= */
+
+.container{
+
+padding-top:25px;
+
+padding-bottom:25px;
+
+}
+
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#111827;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#4F46E5;
+
+border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+background:#6366F1;
+
+}
+
+/* ================= GLASS EFFECT ================= */
+
+.card,
+
+.dashboard-card,
+
+.stat-card,
+
+.sidebar{
+
+background:rgba(17,24,39,.75);
+
+backdrop-filter:blur(15px);
+
+-webkit-backdrop-filter:blur(15px);
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+/* ================= Charts ================= */
+
+canvas{
+
+max-height:320px;
+
+padding:15px;
+
+}
+
+.card canvas{
+
+padding:15px;
+
+}
+
+.dropdown-menu{
+
+background:#111827;
+
+border:none;
+
+}
+
+.dropdown-item{
+
+color:white;
+
+}
+
+.dropdown-item:hover{
+
+background:#4F46E5;
+
+color:white;
+
+}
+
+.notification-menu{
+
+background:#111827;
+
+border:none;
+
+width:320px;
+
+border-radius:15px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+}
+
+.notification-menu .dropdown-item{
+
+color:white;
+
+padding:12px 18px;
+
+transition:.3s;
+
+}
+
+.notification-menu .dropdown-item:hover{
+
+background:#4F46E5;
+
+color:white;
+
+}
+
+.notification-menu .dropdown-header{
+
+color:#38BDF8;
+
+}
+
+/* Light Theme */
+
+.light-mode{
+
+background:#F8FAFC !important;
+
+color:#111827 !important;
+
+}
+
+.light-mode .dashboard-card,
+
+.light-mode .card,
+
+.light-mode .stat-card,
+
+.light-mode .sidebar{
+
+background:white !important;
+
+color:#111827 !important;
+
+}
+
+.light-mode h1,
+
+.light-mode h2,
+
+.light-mode h3,
+
+.light-mode h4,
+
+.light-mode h5,
+
+.light-mode p,
+
+.light-mode a{
+
+color:#111827 !important;
+
+}
+
+.light-mode .dropdown-menu{
+
+background:white;
+
+}
+
+.light-mode .dropdown-item{
+
+color:#111827;
+
+}
+
+.light-mode .notification-menu{
+
+background:white;
+
+}
+
+/* =========================================================
+   LEGACY DASHBOARD LAYOUT (Bootstrap col-md-3 / col-md-9)
+   Kept in case dashboard_base.html still uses this structure.
+========================================================= */
+
+.dashboard-page .container-fluid > .row {
+    align-items: flex-start;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.dashboard-page .col-md-3 {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.dashboard-page .col-md-9 {
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.dashboard-page .col-md-9 > * {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dashboard-page .dashboard-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.dashboard-page .dashboard-card,
+.dashboard-page .card,
+.dashboard-page .stat-card {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+
+    .dashboard-page .col-md-3,
+    .dashboard-page .col-md-9 {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .dashboard-page .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+}
+
+/* =========================================================
+   FLEX DASHBOARD LAYOUT (.dashboard-layout / .dashboard-sidebar / .dashboard-main)
+   Matches the example structure this ticket's spec suggested.
+========================================================= */
+
+.dashboard-layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    align-items: flex-start;
+}
+
+.dashboard-sidebar {
+    width: 270px;
+    min-width: 270px;
+    padding: 25px 15px 25px 25px;
+}
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+    padding: 35px 45px 60px 30px;
+}
+
+.dashboard-main > * {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dashboard-main .row {
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+
+    .dashboard-layout {
+        display: block;
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        min-width: 100%;
+        padding: 15px;
+    }
+
+    .dashboard-main {
+        padding: 25px 20px 50px 20px;
+    }
+
+}
+
+/* =========================================================
+   SHELL DASHBOARD LAYOUT (.dashboard-shell / .dashboard-sidebar-col / .dashboard-main-col)
+   Matches the dashboard_base.html sent in an earlier request.
+========================================================= */
+
+.dashboard-shell {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.dashboard-sidebar-col {
+    flex: 0 0 270px;
+    max-width: 270px;
+    min-width: 270px;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.dashboard-main-col {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.dashboard-main-inner {
+    width: 100%;
+    max-width: 1200px;
+    padding: 2.5rem clamp(1.25rem, 3vw, 3rem);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.dashboard-shell {
+    overflow-x: hidden;
+}
+
+@media (max-width: 992px) {
+    .dashboard-sidebar-col {
+        flex: 0 0 220px;
+        max-width: 220px;
+        min-width: 220px;
+    }
+
+    .dashboard-main-inner {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-shell {
+        flex-direction: column;
+    }
+
+    .dashboard-sidebar-col {
+        position: relative;
+        top: 0;
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        flex: 1 1 100%;
+        overflow-y: visible;
+    }
+
+    .dashboard-main-col {
+        width: 100%;
+    }
+
+    .dashboard-main-inner {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* =========================================================
+   WELCOME SECTION
+   Used by: <div class="dashboard-welcome text-center">
+========================================================= */
+
+.dashboard-welcome {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto 2.5rem auto;
+    text-align: center;
+}
+
+.dashboard-welcome h2 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-welcome p {
+    color: #94A3B8;
+    margin: 0;
+}
+
+/* Topbar variant: welcome text centered + icons pinned right */
+.dashboard-topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.dashboard-welcome-block {
+    flex: 1 1 auto;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.dashboard-welcome-block h2,
+.dashboard-welcome-block .welcome-title {
+    margin-bottom: 0.35rem;
+}
+
+.dashboard-welcome-block p,
+.dashboard-welcome-block .welcome-subtitle {
+    margin: 0;
+    color: #94A3B8;
+}
+
+.dashboard-topbar-actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-topbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .dashboard-topbar-actions {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .dashboard-welcome-block {
+        text-align: center;
+    }
+}
+
+/* =========================================================
+   STAT CARDS GRID (ATS Score / Skills / Job Matches / Resume Rating)
+========================================================= */
+
+.dashboard-stats-row {
+    display: flex;
+    gap: 1.25rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.dashboard-stats-row > * {
+    flex: 1 1 220px;
+    min-width: 0;
+}
+
+@media (max-width: 576px) {
+    .dashboard-stats-row > * {
+        flex: 1 1 100%;
+    }
+}
+
+/* =========================================================
+   RESUME OVERVIEW + SKILL ANALYSIS ROW
+========================================================= */
+
+.dashboard-overview-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: stretch;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.dashboard-overview-row > * {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.dashboard-overview-row canvas {
+    max-width: 100%;
+}
+
+@media (max-width: 992px) {
+    .dashboard-overview-row {
+        flex-wrap: wrap;
+    }
+
+    .dashboard-overview-row > * {
+        flex: 1 1 100%;
+    }
+}
+
+/* Skill Analysis card states */
+.skill-analysis-empty {
+    text-align: center;
+    color: #94A3B8;
+    padding: 1.5rem 0;
+}
+
+.skill-analysis-count {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #60A5FA;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.skill-analysis-progress {
+    height: 14px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.08);
+    overflow: hidden;
+}
+
+.skill-analysis-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg,#4F46E5,#8B5CF6);
+    border-radius: 8px;
+}
+
+/* =========================================================
+   QUICK ACTIONS + FEATURE CARDS
+========================================================= */
+
+.dashboard-quick-actions,
+.dashboard-feature-cards {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.dashboard-quick-actions .row,
+.dashboard-feature-cards .row {
+    width: 100%;
+}
+
+/* =========================================================
+   UPLOAD PAGE CONTENT ALIGNMENT
+========================================================= */
+
+.upload-content {
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 25px;
+}
+
+.upload-content form {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.upload-content .form-control {
+    width: 100%;
+}
+
+.upload-content .btn-primary {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.upload-content .card {
+    width: 100%;
+}
+
+.upload-content canvas {
+    width: 100% !important;
+}
+
+@media (max-width: 768px) {
+
+    .upload-content {
+        padding: 0 10px;
+    }
+
+}
+
+.upload-main-wrapper {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.upload-primary-card {
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+@media (max-width: 768px) {
+    .upload-main-wrapper {
+        padding: 0 0.5rem;
+        max-width: 100%;
+    }
 }

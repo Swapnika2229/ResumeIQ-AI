@@ -1,0 +1,166 @@
+{% extends "dashboard_base.html" %}
+
+{% block title %}
+Career Coach
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="mb-4">
+
+    <h2 class="text-white fw-bold">
+        💼 AI Career Coach
+    </h2>
+
+    <p class="text-secondary">
+        Personalized career guidance based on your resume.
+    </p>
+
+</div>
+
+
+<div class="row g-4">
+
+
+    <!-- CAREER ROADMAP -->
+
+    <div class="col-lg-6">
+
+        <div class="card bg-dark text-white shadow-lg border-0 h-100">
+
+            <div class="card-body">
+
+                <h4 class="mb-3">
+                    🚀 Career Roadmap
+                </h4>
+
+                {% if roadmap %}
+
+                    <div style="white-space: pre-wrap;">
+                        {{ roadmap }}
+                    </div>
+
+                {% else %}
+
+                    <p class="text-secondary mb-0">
+                        Upload your resume to generate your personalized AI roadmap.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CAREER ADVICE -->
+
+    <div class="col-lg-6">
+
+        <div class="card bg-dark text-white shadow-lg border-0 h-100">
+
+            <div class="card-body">
+
+                <h4 class="mb-3">
+                    💡 Career Advice
+                </h4>
+
+                {% if career_advice %}
+
+                    {% if career_advice is string %}
+
+                        <p style="white-space: pre-wrap;">
+                            {{ career_advice }}
+                        </p>
+
+                    {% else %}
+
+                        <ul class="mb-0">
+
+                            {% for advice in career_advice %}
+
+                                <li class="mb-2">
+                                    {{ advice }}
+                                </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <p class="text-secondary mb-0">
+                        AI career suggestions will appear here after resume analysis.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ESTIMATED SALARY -->
+
+    <div class="col-lg-6">
+
+        <div class="card bg-dark text-white shadow-lg border-0">
+
+            <div class="card-body">
+
+                <h4 class="mb-3">
+                    💰 Estimated Salary
+                </h4>
+
+                <h2 class="text-success">
+                    ₹6 LPA – ₹18 LPA
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    This is an illustrative estimate based on skills and experience.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RECOMMENDED LEARNING -->
+
+    <div class="col-lg-6">
+
+        <div class="card bg-dark text-white shadow-lg border-0">
+
+            <div class="card-body">
+
+                <h4 class="mb-3">
+                    📚 Recommended Learning
+                </h4>
+
+                <ul>
+
+                    <li>Advanced Python</li>
+                    <li>Data Structures & Algorithms</li>
+                    <li>Machine Learning</li>
+                    <li>SQL & Databases</li>
+                    <li>System Design</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

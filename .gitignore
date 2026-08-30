@@ -1,5 +1,8 @@
-# Python
+# Virtual environment
 venv/
+.venv/
+
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
@@ -8,17 +11,15 @@ __pycache__/
 # Environment variables / secrets
 .env
 .env.*
-
-# Keep the example environment file
 !.env.example
 
 # Local database
 *.db
+*.sqlite
+*.sqlite3
 
-# Uploaded resumes
+# Uploaded resumes / generated files
 uploads/
-
-# Generated reports
 reports/
 
 # Python tools
@@ -32,3 +33,9 @@ reports/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp

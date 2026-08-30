@@ -1,0 +1,273 @@
+{% extends "dashboard_base.html" %}
+
+{% block body_class %}
+dashboard-page
+{% endblock %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block dashboard_content %}
+
+<!-- TOP HEADER CONTROLS (RIGHT ALIGNED) -->
+<div class="d-flex justify-content-end align-items-center mb-4">
+
+    <button class="header-btn">
+        🔔
+    </button>
+
+    <button id="themeToggle" class="header-btn">
+        🌙
+    </button>
+
+    <img src="{{ url_for('static', filename='images/branding/logo.png') }}"
+         class="profile-img"
+         alt="ResumeIQ AI">
+
+</div>
+
+<!-- CENTERED WELCOME SECTION -->
+<div class="text-center mb-5">
+
+    <h2 class="fw-bold text-white">
+        👋 Welcome back, {{ username }}
+    </h2>
+
+    <p class="text-secondary mb-0">
+        Analyze resumes, improve ATS score and accelerate your career.
+    </p>
+
+</div>
+
+<!-- STAT CARDS -->
+<div class="row mb-5">
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <h3>{{ ats_score }}%</h3>
+            <p>ATS Score</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <h3>{{ skills_count|default(0) }}</h3>
+            <p>Skills</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <h3>{{ job_matches|default(0) }}</h3>
+            <p>Job Matches</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <h3>{{ resume_rating|default("0") }}</h3>
+            <p>Resume Rating</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- OVERVIEW & SKILLS -->
+<div class="row mt-5">
+
+    <!-- Resume Overview -->
+    <div class="col-lg-6">
+
+        <div class="card bg-dark shadow-lg border-0">
+
+            <div class="card-body">
+
+                <h4 class="text-white mb-4">
+                    📊 Resume Overview
+                </h4>
+
+                <canvas id="resumeChart"></canvas>
+
+                <script>
+                    const atsScore = {{ ats_score|default(0) }};
+                    const skillsCount = {{ skills_count|default(0) }};
+                    const jobMatches = {{ job_matches|default(0) }};
+                </script>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Skill Analysis -->
+    <div class="col-lg-6">
+
+        <div class="card bg-dark shadow-lg border-0">
+
+            <div class="card-body">
+
+                <h4 class="text-white mb-4">
+                    🛠 Skill Analysis
+                </h4>
+
+                <div class="text-white">
+
+                    <p class="mb-3">
+                        Skills detected in your latest resume:
+                    </p>
+
+                    {% if skills_count and skills_count > 0 %}
+
+                        <div class="mb-3">
+
+                            <h2 class="text-info">
+                                {{ skills_count }}
+                            </h2>
+
+                            <small class="text-secondary">
+                                Skills Found
+                            </small>
+
+                        </div>
+
+                        <div class="progress mb-3">
+
+                            <div class="progress-bar bg-info"
+                                 style="width: {{ [skills_count * 5, 100] | min }}%;">
+
+                                {{ skills_count }} skills
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="text-secondary">
+
+                            <p>
+                                Upload a resume to see your skill analysis.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="card bg-dark border-0 shadow-lg mt-5">
+
+    <div class="card-body">
+
+        <h4 class="text-white mb-4">
+            ⚡ Quick Actions
+        </h4>
+
+        <div class="d-flex flex-wrap gap-3">
+
+            <a href="/upload" class="btn btn-primary">
+                📄 Upload Resume
+            </a>
+
+            <a href="/analysis" class="btn btn-success">
+                🤖 AI Analysis
+            </a>
+
+            <a href="/career" class="btn btn-warning">
+                🚀 Career Coach
+            </a>
+
+            <a href="/history" class="btn btn-info">
+                📁 Resume History
+            </a>
+
+            <a href="/settings" class="btn btn-secondary">
+                ⚙ Settings
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FEATURE CARDS -->
+<div class="row g-4 mt-2">
+
+    <div class="col-lg-4">
+        <div class="dashboard-card card-upload">
+            <div class="icon-circle">📄</div>
+            <h4>Resume Upload</h4>
+            <p>Upload your resume and start AI analysis instantly.</p>
+            <a href="/upload" class="btn btn-light">Open →</a>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="dashboard-card card-ai">
+            <div class="icon-circle">🤖</div>
+            <h4>AI Analysis</h4>
+            <p>ATS Score, Resume Review and Skill Analysis.</p>
+            <a href="/analysis" class="btn btn-light">Open →</a>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="dashboard-card card-report">
+            <div class="icon-circle">📊</div>
+            <h4>Reports</h4>
+            <p>Download professional AI-generated reports.</p>
+            <a href="/history" class="btn btn-light">Open →</a>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="dashboard-card card-interview">
+            <div class="icon-circle">🎤</div>
+            <h4>Interview Prep</h4>
+            <p>Practice AI-generated interview questions.</p>
+            <a href="/upload" class="btn btn-light">Open →</a>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="dashboard-card card-cover">
+            <div class="icon-circle">📝</div>
+            <h4>Cover Letter</h4>
+            <p>Generate professional cover letters instantly.</p>
+            <a href="/upload" class="btn btn-light">Open →</a>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="dashboard-card card-career">
+            <div class="icon-circle">🚀</div>
+            <h4>Career Roadmap</h4>
+            <p>Get personalized career guidance using AI.</p>
+            <a href="/upload" class="btn btn-light">Open →</a>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="dashboard-card card-settings">
+            <div class="icon-circle">⚙</div>
+            <h4>Settings</h4>
+            <p>Manage your profile, security and account settings.</p>
+            <a href="/settings" class="btn btn-light">Open →</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}
+Resume History
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>
+            📁 Resume History
+        </h2>
+
+        {% if resumes %}
+        <form method="POST"
+              action="/clear-history"
+              onsubmit="return confirm('Are you sure you want to clear your resume history?');">
+
+            <button type="submit" class="btn btn-danger">
+                🗑 Clear Resume History
+            </button>
+
+        </form>
+        {% endif %}
+
+    </div>
+
+    <table class="table table-dark table-striped">
+
+        <thead>
+
+            <tr>
+
+                <th>Resume</th>
+
+                <th>ATS Score</th>
+
+                <th>Upload Date</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for resume in resumes %}
+
+            <tr>
+
+                <td>
+
+                    {{ resume.filename }}
+
+                </td>
+
+                <td>
+
+                    {{ resume.ats_score }}%
+
+                </td>
+
+                <td>
+
+                    {{ resume.upload_date }}
+
+                </td>
+
+            </tr>
+
+            {% else %}
+
+            <tr>
+
+                <td colspan="3" class="text-center text-muted py-4">
+
+                    No resume history found.
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

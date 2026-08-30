@@ -1,0 +1,98 @@
+<div class="sidebar shadow-lg">
+
+    <!-- LOGO -->
+    <div class="text-center py-4">
+
+        <img
+            src="{{ url_for('static', filename='images/branding/logo.png') }}"
+            width="70"
+            class="mb-3"
+            alt="ResumeIQ AI Logo">
+
+        <h4 class="text-white fw-bold">
+            ResumeIQ AI
+        </h4>
+
+        <small class="text-secondary">
+            AI Career Platform
+        </small>
+
+    </div>
+
+
+    <hr class="text-secondary">
+
+
+    <!-- SIDEBAR MENU -->
+    <div class="list-group list-group-flush">
+
+        <a href="{{ url_for('dashboard') }}"
+           class="list-group-item sidebar-item">
+            🏠 Dashboard
+        </a>
+
+
+        <a href="{{ url_for('upload') }}"
+           class="list-group-item sidebar-item">
+            📄 Upload Resume
+        </a>
+
+
+        <a href="{{ url_for('analysis') }}"
+           class="list-group-item sidebar-item">
+            🤖 AI Analysis
+        </a>
+
+
+        <a href="{{ url_for('career') }}"
+           class="list-group-item sidebar-item">
+            💼 Career Coach
+        </a>
+
+
+        <a href="{{ url_for('reports') }}"
+           class="list-group-item sidebar-item">
+            📊 Reports
+        </a>
+
+
+        <a href="{{ url_for('history') }}"
+           class="list-group-item sidebar-item">
+            📁 Resume History
+        </a>
+
+
+        <a href="{{ url_for('settings') }}"
+           class="list-group-item sidebar-item">
+            ⚙ Settings
+        </a>
+
+
+        <hr class="text-secondary">
+
+
+        <a href="{{ url_for('logout') }}"
+           class="btn btn-danger w-100">
+            🚪 Logout
+        </a>
+
+    </div>
+
+
+    <!-- User Profile -->
+    <div class="text-center mt-5">
+
+        <img src="https://ui-avatars.com/api/?name=Swapnika&background=4F46E5&color=fff&size=80"
+             class="rounded-circle mb-2">
+
+        <h6 class="text-light mb-1">
+            Swapnika Mohanty
+        </h6>
+
+        <small class="text-secondary">
+            CSE Student
+        </small>
+
+    </div>
+
+</div>

@@ -1,0 +1,9 @@
+Flask
+pdfplumber
+python-docx
+groq
+python-dotenv
+reportlab
+PyPDF2
+yagmail
+Flask-Mail
