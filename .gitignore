@@ -1,8 +1,34 @@
+# Python
 venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Environment variables / secrets
 .env
-uploads/
-reports/
+.env.*
+
+# Keep the example environment file
+!.env.example
+
 # Local database
 *.db
+
+# Uploaded resumes
+uploads/
+
+# Generated reports
+reports/
+
+# Python tools
+.pytest_cache/
+.mypy_cache/
+
+# IDE / editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
