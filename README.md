@@ -456,3 +456,42 @@ Computer Science & Engineering Student
 
 GitHub:
 https://github.com/Swapnika2229
+
+
+## 📸 Application Screenshots
+
+### 🏠 Homepage
+![Homepage](screenshots/homepage.png)
+
+### 📊 Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### 📤 Resume Upload
+![Resume Upload](screenshots/upload-resume.png)
+
+### 🤖 AI Resume Analysis
+![AI Analysis - Overview](screenshots/ai-analysis1.png)
+
+![AI Analysis - Details](screenshots/ai-analysis2.png)
+
+### 📈 ATS Score
+![ATS Score](screenshots/ats-score.png)
+
+### 💪 Resume Strength
+![Resume Analytics](screenshots/resume-analytics.png)
+
+### 🧠 AI Career Coach
+![Career Coach](screenshots/career-coach.png)
+
+### 📋 Reports
+![Reports](screenshots/reports.png)
+
+### 📚 Resume History
+![Resume History](screenshots/history.png)
+
+### ⚙️ Settings
+![Settings](screenshots/settings.png)
+
+### 🔐 Authentication
+![Login](screenshots/login.png)
+
