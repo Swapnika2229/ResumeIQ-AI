@@ -7,3 +7,4 @@ reportlab
 PyPDF2
 yagmail
 Flask-Mail
+gunicorn==26.2.0
