@@ -298,50 +298,50 @@ def upload():
 
     print("Job matching completed")
 
-# =========================
-# AI ANALYSIS
-# ONE GROQ API REQUEST
-# =========================
+    # =========================
+    # AI ANALYSIS
+    # ONE GROQ API REQUEST
+    # =========================
 
-print("Starting combined AI analysis...")
+    print("Starting combined AI analysis...")
 
-ai_content = generate_all_ai_content(
-    resume_text,
-    detected_skills
-)
+    ai_content = generate_all_ai_content(
+        resume_text,
+        detected_skills
+    )
 
-ai_review = ai_content.get(
-    "ai_review",
-    ""
-)
+    ai_review = ai_content.get(
+        "ai_review",
+        ""
+    )
 
-interview_questions = ai_content.get(
-    "interview_questions",
-    ""
-)
+    interview_questions = ai_content.get(
+        "interview_questions",
+        ""
+    )
 
-cover_letter = ai_content.get(
-    "cover_letter",
-    ""
-)
+    cover_letter = ai_content.get(
+        "cover_letter",
+        ""
+    )
 
-rewritten_resume = ai_content.get(
-    "rewritten_resume",
-    ""
-)
+    rewritten_resume = ai_content.get(
+        "rewritten_resume",
+        ""
+    )
 
-roadmap = ai_content.get(
-    "roadmap",
-    ""
-)
+    roadmap = ai_content.get(
+        "roadmap",
+        ""
+    )
 
-print("All AI sections generated.")
+    print("All AI sections generated.")
 
     # =========================
     # CAREER ADVICE
     # =========================
 
-career_advice_text = "\n".join(
+    career_advice_text = "\n".join(
         career_advice
     ) if isinstance(career_advice, list) else str(
         career_advice
@@ -351,19 +351,19 @@ career_advice_text = "\n".join(
     # RESUME RATING
     # =========================
 
-resume_rating = resume_strength.get(
+    resume_rating = resume_strength.get(
         "score",
         0
     )
 
-resume_level = resume_strength.get(
+    resume_level = resume_strength.get(
         "level",
         "Beginner"
     )
 
     # Chat is now handled exclusively on the /analysis page via
     # /resume-chat, so no chat happens during upload itself.
-chat_answer = ""
+    chat_answer = ""
 
     # =========================
     # SAVE TO DATABASE
@@ -371,11 +371,11 @@ chat_answer = ""
     #  here, server-side, NOT in the session cookie)
     # =========================
 
-conn = sqlite3.connect("resumeiq.db")
-conn.row_factory = sqlite3.Row
-cursor = conn.cursor()
+    conn = sqlite3.connect("resumeiq.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
 
-cursor.execute(
+    cursor.execute(
         """
         INSERT INTO resume_history
         (
@@ -406,37 +406,37 @@ cursor.execute(
         )
     )
 
-conn.commit()
+    conn.commit()
 
-resume_id = cursor.lastrowid
+    resume_id = cursor.lastrowid
 
-conn.close()
+    conn.close()
 
-print("Resume history saved")
-print("New resume_id:", resume_id)
+    print("Resume history saved")
+    print("New resume_id:", resume_id)
 
     # =========================
     # SAVE SESSION DATA
     # Only small values go into the session cookie.
     # =========================
 
-session["resume_id"] = resume_id
-session["ats_score"] = ats_score
-session["skills_count"] = len(detected_skills)
-session["detected_skills"] = detected_skills
-session["job_matches"] = job_match
-session["resume_rating"] = resume_rating
+    session["resume_id"] = resume_id
+    session["ats_score"] = ats_score
+    session["skills_count"] = len(detected_skills)
+    session["detected_skills"] = detected_skills
+    session["job_matches"] = job_match
+    session["resume_rating"] = resume_rating
 
     # =========================
     # GENERATE PDF REPORT
     # =========================
 
-pdf_path = os.path.join(
+    pdf_path = os.path.join(
         "uploads",
         "ResumeIQ_Report.pdf"
     )
 
-generate_pdf(
+    generate_pdf(
         pdf_path,
         ats_score,
         detected_skills,
@@ -444,7 +444,7 @@ generate_pdf(
         ai_review
     )
 
-print("PDF report generated")
+    print("PDF report generated")
 
     # =========================
     # DISPLAY RESULTS
@@ -452,7 +452,7 @@ print("PDF report generated")
     #  none of this large content is stored in the session)
     # =========================
 
-return render_template(
+    return render_template(
         "upload.html",
 
         extracted_text=resume_text,
@@ -490,7 +490,7 @@ return render_template(
         chat_answer=chat_answer,
 
         pdf_file=pdf_path
-)
+    )
 
 
 @app.route("/download-report")
