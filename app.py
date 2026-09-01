@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
 from ai.analyzer import analyze_resume
-from ai.groq_service import ask_resume_ai
+from ai.groq_service import ask_resume_ai, generate_all_ai_content
 from ai.interview_generator import generate_interview_questions
 from ai.cover_letter import generate_cover_letter
 from ai.job_match import calculate_job_match
@@ -298,69 +298,50 @@ def upload():
 
     print("Job matching completed")
 
-    # =========================
-    # AI RESUME REVIEW
-    # =========================
+# =========================
+# AI ANALYSIS
+# ONE GROQ API REQUEST
+# =========================
 
-    ai_review = ask_resume_ai(
-        f"""
-You are an ATS Resume Expert.
+print("Starting combined AI analysis...")
 
-Analyze the following resume.
+ai_content = generate_all_ai_content(
+    resume_text,
+    detected_skills
+)
 
-Give your response in this format:
+ai_review = ai_content.get(
+    "ai_review",
+    ""
+)
 
-1. Overall Resume Review
-2. Strengths
-3. Weaknesses
-4. ATS Improvement Suggestions
-5. Career Advice
+interview_questions = ai_content.get(
+    "interview_questions",
+    ""
+)
 
-Resume:
+cover_letter = ai_content.get(
+    "cover_letter",
+    ""
+)
 
-{resume_text}
-"""
-    )
+rewritten_resume = ai_content.get(
+    "rewritten_resume",
+    ""
+)
 
-    print("AI resume review completed")
+roadmap = ai_content.get(
+    "roadmap",
+    ""
+)
 
-    # =========================
-    # INTERVIEW QUESTIONS
-    # =========================
-
-    interview_questions = generate_interview_questions(
-        resume_text
-    )
-
-    # =========================
-    # COVER LETTER
-    # =========================
-
-    cover_letter = generate_cover_letter(
-        resume_text
-    )
-
-    # =========================
-    # RESUME REWRITE
-    # =========================
-
-    rewritten_resume = rewrite_resume(
-        resume_text
-    )
-
-    # =========================
-    # CAREER ROADMAP
-    # =========================
-
-    roadmap = generate_roadmap(
-        detected_skills
-    )
+print("All AI sections generated.")
 
     # =========================
     # CAREER ADVICE
     # =========================
 
-    career_advice_text = "\n".join(
+career_advice_text = "\n".join(
         career_advice
     ) if isinstance(career_advice, list) else str(
         career_advice
@@ -370,19 +351,19 @@ Resume:
     # RESUME RATING
     # =========================
 
-    resume_rating = resume_strength.get(
+resume_rating = resume_strength.get(
         "score",
         0
     )
 
-    resume_level = resume_strength.get(
+resume_level = resume_strength.get(
         "level",
         "Beginner"
     )
 
     # Chat is now handled exclusively on the /analysis page via
     # /resume-chat, so no chat happens during upload itself.
-    chat_answer = ""
+chat_answer = ""
 
     # =========================
     # SAVE TO DATABASE
@@ -390,11 +371,11 @@ Resume:
     #  here, server-side, NOT in the session cookie)
     # =========================
 
-    conn = sqlite3.connect("resumeiq.db")
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
+conn = sqlite3.connect("resumeiq.db")
+conn.row_factory = sqlite3.Row
+cursor = conn.cursor()
 
-    cursor.execute(
+cursor.execute(
         """
         INSERT INTO resume_history
         (
@@ -425,37 +406,37 @@ Resume:
         )
     )
 
-    conn.commit()
+conn.commit()
 
-    resume_id = cursor.lastrowid
+resume_id = cursor.lastrowid
 
-    conn.close()
+conn.close()
 
-    print("Resume history saved")
-    print("New resume_id:", resume_id)
+print("Resume history saved")
+print("New resume_id:", resume_id)
 
     # =========================
     # SAVE SESSION DATA
     # Only small values go into the session cookie.
     # =========================
 
-    session["resume_id"] = resume_id
-    session["ats_score"] = ats_score
-    session["skills_count"] = len(detected_skills)
-    session["detected_skills"] = detected_skills
-    session["job_matches"] = job_match
-    session["resume_rating"] = resume_rating
+session["resume_id"] = resume_id
+session["ats_score"] = ats_score
+session["skills_count"] = len(detected_skills)
+session["detected_skills"] = detected_skills
+session["job_matches"] = job_match
+session["resume_rating"] = resume_rating
 
     # =========================
     # GENERATE PDF REPORT
     # =========================
 
-    pdf_path = os.path.join(
+pdf_path = os.path.join(
         "uploads",
         "ResumeIQ_Report.pdf"
     )
 
-    generate_pdf(
+generate_pdf(
         pdf_path,
         ats_score,
         detected_skills,
@@ -463,7 +444,7 @@ Resume:
         ai_review
     )
 
-    print("PDF report generated")
+print("PDF report generated")
 
     # =========================
     # DISPLAY RESULTS
@@ -471,7 +452,7 @@ Resume:
     #  none of this large content is stored in the session)
     # =========================
 
-    return render_template(
+return render_template(
         "upload.html",
 
         extracted_text=resume_text,
@@ -509,7 +490,7 @@ Resume:
         chat_answer=chat_answer,
 
         pdf_file=pdf_path
-    )
+)
 
 
 @app.route("/download-report")
