@@ -31,214 +31,144 @@ client = (
 
 def generate_all_ai_content(resume_text, detected_skills):
     """
-    Generate all AI-powered resume features using ONE Groq API call.
+    Generate all AI resume features using ONE small Groq request.
 
-    This prevents multiple sequential API calls from causing
-    Groq rate-limit errors and Gunicorn worker timeouts.
+    The resume is truncated and the output token limit is kept low
+    to stay safely below Groq's free-tier TPM limit.
     """
 
+    default_message = (
+        "AI service is temporarily unavailable. "
+        "Your resume was uploaded successfully, but the AI analysis "
+        "could not be completed. Please try again later."
+    )
+
     default_response = {
-        "ai_review": (
-            "AI service is temporarily unavailable. "
-            "Your resume was uploaded successfully. "
-            "Please try the AI analysis again later."
-        ),
-
-        "interview_questions": (
-            "AI service is temporarily unavailable. "
-            "Please try again later."
-        ),
-
-        "cover_letter": (
-            "AI service is temporarily unavailable. "
-            "Please try again later."
-        ),
-
-        "rewritten_resume": (
-            "AI service is temporarily unavailable. "
-            "Please try again later."
-        ),
-
-        "roadmap": (
-            "AI service is temporarily unavailable. "
-            "Please try again later."
-        )
+        "ai_review": default_message,
+        "interview_questions": default_message,
+        "cover_letter": default_message,
+        "rewritten_resume": default_message,
+        "roadmap": default_message
     }
-
-    # -----------------------------------------------------
-    # Check API key
-    # -----------------------------------------------------
 
     if not client:
         print("Groq AI Error: GROQ_API_KEY is not configured.")
         return default_response
 
-    # -----------------------------------------------------
-    # Create ONE combined prompt
-    # -----------------------------------------------------
+    # ---------------------------------------------------------
+    # LIMIT INPUT SIZE
+    # ---------------------------------------------------------
 
-    skills_text = ", ".join(detected_skills)
+    # Keep the resume small enough for the 8,000 TPM limit.
+    resume_text = (resume_text or "").strip()
+
+    if len(resume_text) > 9000:
+        resume_text = resume_text[:9000] + "\n[Resume text truncated]"
+
+    skills_text = ", ".join(detected_skills[:30])
+
+    # ---------------------------------------------------------
+    # SMALL COMBINED PROMPT
+    # ---------------------------------------------------------
 
     prompt = f"""
-You are an expert ATS resume analyzer, technical interviewer,
-career mentor, professional resume writer, and recruiter.
+You are an ATS resume expert and career mentor.
 
-Analyze the candidate's resume below.
+Analyze this candidate's resume and return FIVE concise sections.
 
-You must generate ALL of the following in ONE response.
-
-=========================================================
-SECTION 1 — AI RESUME REVIEW
-=========================================================
-
+1. AI RESUME REVIEW
 Give:
+- Overall review
+- 3 strengths
+- 3 weaknesses
+- 5 ATS suggestions
+- brief career advice
 
-1. Overall Resume Review
-2. Strengths
-3. Weaknesses
-4. ATS Improvement Suggestions
-5. Career Advice
+2. INTERVIEW QUESTIONS
+Give:
+- 5 technical questions
+- 5 HR questions
+- 3 project questions
 
-=========================================================
-SECTION 2 — INTERVIEW QUESTIONS
-=========================================================
+3. COVER LETTER
+Write a concise professional ATS-friendly cover letter.
 
-Generate:
+4. RESUME REWRITE
+Rewrite the important resume content professionally.
+Keep it concise. Do not invent experience.
 
-1. Five Technical Interview Questions
-2. Five HR Interview Questions
-3. Three Project-based Questions
+5. CAREER ROADMAP
+Give a practical 6-month roadmap.
+Include certifications, projects, interview preparation and resources.
 
-=========================================================
-SECTION 3 — COVER LETTER
-=========================================================
-
-Write a modern, professional, ATS-friendly cover letter
-based on the candidate's resume.
-
-=========================================================
-SECTION 4 — RESUME REWRITE
-=========================================================
-
-Rewrite the resume professionally.
-
-Improve:
-
-- Grammar
-- ATS Keywords
-- Bullet Points
-- Professional Tone
-- Clarity
-- Impact
-
-=========================================================
-SECTION 5 — SIX-MONTH CAREER ROADMAP
-=========================================================
-
-Create a practical 6-month learning roadmap based on
-the candidate's current skills.
-
-Include:
-
-Month 1
-Month 2
-Month 3
-Month 4
-Month 5
-Month 6
-
-Also include:
-
-- Certifications
-- Projects
-- Interview Preparation
-- Resources
-
-=========================================================
-IMPORTANT OUTPUT FORMAT
-=========================================================
-
-Use these exact markers:
+Use EXACTLY these markers:
 
 ### AI_REVIEW_START
-Your resume review here
+...
 ### AI_REVIEW_END
 
 ### INTERVIEW_START
-Interview questions here
+...
 ### INTERVIEW_END
 
 ### COVER_LETTER_START
-Cover letter here
+...
 ### COVER_LETTER_END
 
 ### REWRITE_START
-Rewritten resume here
+...
 ### REWRITE_END
 
 ### ROADMAP_START
-Career roadmap here
+...
 ### ROADMAP_END
 
-Do not omit any section.
+Candidate skills:{skills_text}
 
-=========================================================
-CANDIDATE SKILLS
-=========================================================
-
-{skills_text}
-
-=========================================================
-RESUME
-=========================================================
-
-{resume_text}
+Resume:{resume_text}
 """
 
-    # -----------------------------------------------------
-    # ONE API REQUEST ONLY
-    # -----------------------------------------------------
+    # ---------------------------------------------------------
+    # ONE SMALL API REQUEST
+    # ---------------------------------------------------------
 
     try:
-
-        print("Sending ONE combined request to Groq...")
+        print("Sending optimized combined request to Groq...")
 
         response = client.chat.completions.create(
             model=MODEL_NAME,
-
             messages=[
                 {
                     "role": "user",
                     "content": prompt
                 }
             ],
-
-            temperature=0.7,
-
-            max_tokens=7000
+            temperature=0.5,
+            max_tokens=3500
         )
 
-        content = response.choices[0].message.content
+        content = response.choices[0].message.content or ""
 
         print("Combined AI analysis completed successfully.")
 
-        # -------------------------------------------------
-        # Parse sections
-        # -------------------------------------------------
+        # -----------------------------------------------------
+        # SECTION PARSER
+        # -----------------------------------------------------
 
         def extract_section(text, start_marker, end_marker):
+            start_index = text.find(start_marker)
 
-            if start_marker not in text:
+            if start_index == -1:
                 return ""
 
-            start = text.find(start_marker) + len(start_marker)
+            start_index += len(start_marker)
 
-            end = text.find(end_marker, start)
+            end_index = text.find(end_marker, start_index)
 
-            if end == -1:
-                return text[start:].strip()
+            if end_index == -1:
+                return text[start_index:].strip()
 
-            return text[start:end].strip()
+            return text[start_index:end_index].strip()
 
         ai_review = extract_section(
             content,
@@ -270,46 +200,33 @@ RESUME
             "### ROADMAP_END"
         )
 
-        # -------------------------------------------------
-        # Fallback if a section wasn't parsed
-        # -------------------------------------------------
-
-        if not ai_review:
-            ai_review = "AI resume review could not be generated."
-
-        if not interview_questions:
-            interview_questions = "Interview questions could not be generated."
-
-        if not cover_letter:
-            cover_letter = "Cover letter could not be generated."
-
-        if not rewritten_resume:
-            rewritten_resume = "Resume rewrite could not be generated."
-
-        if not roadmap:
-            roadmap = "Career roadmap could not be generated."
-
         return {
-            "ai_review": ai_review,
-            "interview_questions": interview_questions,
-            "cover_letter": cover_letter,
-            "rewritten_resume": rewritten_resume,
-            "roadmap": roadmap
+            "ai_review": ai_review or "AI resume review could not be generated.",
+            "interview_questions": (
+                interview_questions
+                or "Interview questions could not be generated."
+            ),
+            "cover_letter": (
+                cover_letter
+                or "Cover letter could not be generated."
+            ),
+            "rewritten_resume": (
+                rewritten_resume
+                or "Resume rewrite could not be generated."
+            ),
+            "roadmap": (
+                roadmap
+                or "Career roadmap could not be generated."
+            )
         }
 
-    # -----------------------------------------------------
-    # RATE LIMIT
-    # -----------------------------------------------------
-
     except RateLimitError as e:
-
         print("Groq Rate Limit Error:", str(e))
 
         rate_message = (
-            "AI service is temporarily busy due to API rate limits. "
-            "Your resume was uploaded successfully, but the AI "
-            "analysis could not be completed right now. "
-            "Please try again later."
+            "AI service is temporarily busy because the AI usage limit "
+            "was reached. Your resume was uploaded successfully. "
+            "Please try again shortly."
         )
 
         return {
@@ -320,12 +237,7 @@ RESUME
             "roadmap": rate_message
         }
 
-    # -----------------------------------------------------
-    # OTHER ERRORS
-    # -----------------------------------------------------
-
     except Exception as e:
-
         print("Groq AI Error:", str(e))
 
         error_message = (
